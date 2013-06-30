@@ -1,0 +1,1 @@
+source "$HOME/bin/virtualenv-auto-activate.sh"

@@ -1,0 +1,25 @@
+[core]
+        excludesfile = /home/vagrant/.gitignore_global
+[user]
+        name = Ardy Dedase
+        email = ardy.dedase@gmail.com
+[alias]
+        qa = goth qa
+        st = status
+        co = checkout
+        cp = cherry-pick
+        lg = log --pretty=oneline --decorate --graph
+[color]
+    diff=auto
+    status=auto
+    branch=auto
+    interactive=auto
+    ui=true
+    pager=true
+[difftool "sourcetree"]
+        cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+        
+#        path =
+#[mergetool "sourcetree"#]
+#        cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+#        trustExitCode = true

@@ -1,0 +1,1 @@
+# Python 2.7 setup on CentOS 6.3 with Vagrant and Puppet
