@@ -24,12 +24,6 @@ class misc {
     , user => root
   }
 
-  exec { "python-download":
-      command => "/usr/bin/curl -O https://code.google.com/p/htmlcompressor/downloads/detail?name=htmlcompressor-1.5.3.jar"
-    , cwd => "/vagrant/files"      
-  }
-
-
   # yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel
   package { "zlib-devel":
       ensure  => present    

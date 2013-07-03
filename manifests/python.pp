@@ -8,20 +8,20 @@ class python {
         owner   => "vagrant"
       , group   => "vagrant"
       , mode    => 644
-      # require => Package["httpd"],
-      # notify  => Service["httpd"]
+      , require => Package["httpd"]
+      , notify  => Service["httpd"]
     }    
 
     # Download, extract, make and install Python
-    # exec { "python-download":
-    #     command => "/usr/bin/curl -O http://www.python.org/ftp/python/2.7.3/${python_package}"
-    #   , cwd => "/vagrant/files"      
-    # }
+    exec { "python-download":
+        command => "/usr/bin/curl -O http://www.python.org/ftp/python/2.7.3/${python_package}"
+      , cwd => "/vagrant/files"      
+    }
 
     exec { "python-extract":
         command => "/bin/tar -xvjf /vagrant/files/${python_package}"
       , cwd => "/vagrant/files"
-      # , require => [Exec["python-download"]]
+      , require => [Exec["python-download"]]
     }
 
     exec { "python-configure":
@@ -46,16 +46,16 @@ class python {
     }
 
     # Download and install Distribute    
-    # exec { "distribute-download":
-    #   command => "/usr/bin/curl -O http://pypi.python.org/packages/source/d/distribute/${distribute_package}",
-    #   cwd => "/vagrant/files",
-    #   require => [Exec["python-install"]]
-    # }
+    exec { "distribute-download":
+        command => "/usr/bin/curl -O http://pypi.python.org/packages/source/d/distribute/${distribute_package}"
+      , cwd => "/vagrant/files"
+      , require => [Exec["python-install"]]
+    }
 
     exec { "distribute-extract":
         command => "/bin/tar -xvzf /vagrant/files/${distribute_package}"
       , cwd => "/vagrant/files"
-      # , require => [Exec["distribute-download"]]
+      , require => [Exec["distribute-download"]]
     }
 
     exec { "distribute-install":

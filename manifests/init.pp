@@ -1,13 +1,9 @@
-# Puppet manifest for my PHP dev machine
+# Python Dev
 class pythondev{
 	require yum
-	include iptables
-	#include rpmforge
+	include iptables	
 	include misc
 	include httpd
 	include python
-	# include db
-	# include php	
-	# include phpmyadmin
 }
 include pythondev
