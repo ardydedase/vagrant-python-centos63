@@ -37,7 +37,6 @@ Vagrant::Config.run do |config|
     :facter => { "fqdn" => "vagrant.vagrantup.com" }  do |puppet|
        puppet.manifests_path = "manifests"
        puppet.manifest_file = "init.pp"
-       puppet.module_path = "modules"
   end
 
 end
