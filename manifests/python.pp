@@ -35,6 +35,7 @@ class python {
         command => "/usr/bin/make"
       , cwd => "/vagrant/files/Python-2.7.3"
       , require => [Exec["python-configure"]]
+      , returns => [2]
     }
 
     exec { "python-install":
@@ -42,7 +43,7 @@ class python {
       , cwd => "/vagrant/files/Python-2.7.3"
       , require => [Exec["python-make"]]
       , user => root
-      , returns => [0]
+      , returns => [2]
     }
 
     # Download and install Distribute    
