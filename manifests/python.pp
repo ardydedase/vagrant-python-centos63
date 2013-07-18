@@ -34,13 +34,13 @@ class python {
 
     exec { "python-make":
         command => "/usr/bin/make"
-      , cwd => "/vagrant/files/Python-2.7.3"
+      , cwd => "/vagrant/files/Python-2.7.3/"
       , require => [Exec["python-configure"]]
       , returns => [2]
     }
 
     exec { "python-install":
-        command => "/usr/bin/make && /usr/bin/make altinstall"
+        command => "/usr/bin/make altinstall"
       , cwd => "/vagrant/files/Python-2.7.3/"
       , require => [Exec["python-make"]]
       , user => root
