@@ -14,7 +14,7 @@ class python {
 
     # Download, extract, make and install Python
     exec { "python-download":
-        command => "/usr/bin/curl -O http://www.python.org/ftp/python/2.7.3/${python_package}"
+        command => "/usr/bin/wget http://www.python.org/ftp/python/2.7.3/${python_package}"
       , cwd => "/vagrant/files"      
     }
 
@@ -22,6 +22,7 @@ class python {
         command => "/bin/tar -xvjf /vagrant/files/${python_package}"
       , cwd => "/vagrant/files"
       , require => [Exec["python-download"]]
+      , returns => [0]
     }
 
     exec { "python-configure":
@@ -39,8 +40,8 @@ class python {
     }
 
     exec { "python-install":
-        command => "/usr/bin/make altinstall"
-      , cwd => "/vagrant/files/Python-2.7.3"
+        command => "/usr/bin/make && /usr/bin/make altinstall"
+      , cwd => "/vagrant/files/Python-2.7.3/"
       , require => [Exec["python-make"]]
       , user => root
       , returns => [2]
@@ -48,7 +49,7 @@ class python {
 
     # Download and install Distribute    
     exec { "distribute-download":
-        command => "/usr/bin/curl -O http://pypi.python.org/packages/source/d/distribute/${distribute_package}"
+        command => "/usr/bin/wget --no-check-certificate http://pypi.python.org/packages/source/d/distribute/${distribute_package}"
       , cwd => "/vagrant/files"
       , require => [Exec["python-install"]]
     }
@@ -57,10 +58,11 @@ class python {
         command => "/bin/tar -xvzf /vagrant/files/${distribute_package}"
       , cwd => "/vagrant/files"
       , require => [Exec["distribute-download"]]
+      , returns => [0]
     }
 
     exec { "distribute-install":
-        command => "/usr/local/bin/python2.7 setup.py install"
+        command => "/usr/bin/python2.7 setup.py install"
       , cwd => "/vagrant/files/distribute-0.6.35"
       , path => "/vagrant/files/distribute-0.6.35"
       , require => [Exec["distribute-extract"]]
