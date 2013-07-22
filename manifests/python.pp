@@ -25,27 +25,42 @@ class python {
       , returns => [0]
     }
 
-    exec { "python-configure":
-        command => "./configure --prefix=/usr/"
-      , path => "/vagrant/files/Python-2.7.3/"
-      , require => [Exec["python-extract"]]
-      , returns => [1] # successful execution returns 1
-    }
-
-    exec { "python-make":
-        command => "/usr/bin/make"
-      , cwd => "/vagrant/files/Python-2.7.3/"
-      , require => [Exec["python-configure"]]
-      , returns => [2]
-    }
-
     exec { "python-install":
-        command => "/usr/bin/make altinstall"
+        command => "python-install.sh"
+      , path => "/home/vagrant/bin/"
       , cwd => "/vagrant/files/Python-2.7.3/"
-      , require => [Exec["python-make"]]
-      , user => root
-      , returns => [2]
+      , require => [Exec["python-extract"]]
+      , before => [Exec["distribute-download"]]
+      #, user => root
+      #, returns => [1] # successful execution returns 1
     }
+
+
+    # exec { "python-configure":
+    #     command => "./configure --prefix=/usr/local"
+    #   , path => "/vagrant/files/Python-2.7.3/"
+    #   , cwd => "/vagrant/files/Python-2.7.3/"
+    #   , require => [Exec["python-extract"]]
+    #   , before => [Exec["python-make"]]
+    #   #, user => root
+    #   #, returns => [1] # successful execution returns 1
+    # }
+
+    # exec { "python-make":
+    #     command => "/usr/bin/make"
+    #   #, path => "/vagrant/files/Python-2.7.3/"        
+    #   , cwd => "/vagrant/files/Python-2.7.3/"
+    #   , require => [Exec["python-configure"]]
+    #   #, returns => [2]
+    # }
+
+    # exec { "python-install":
+    #     command => "/usr/bin/make altinstall"
+    #   , cwd => "/vagrant/files/Python-2.7.3/"
+    #   , require => [Exec["python-make"]]
+    #   , user => root
+    #   , returns => [2]
+    # }
 
     # Download and install Distribute    
     exec { "distribute-download":
@@ -62,7 +77,7 @@ class python {
     }
 
     exec { "distribute-install":
-        command => "/usr/bin/python2.7 setup.py install"
+        command => "/usr/local/bin/python2.7 setup.py install"
       , cwd => "/vagrant/files/distribute-0.6.35"
       , path => "/vagrant/files/distribute-0.6.35"
       , require => [Exec["distribute-extract"]]
