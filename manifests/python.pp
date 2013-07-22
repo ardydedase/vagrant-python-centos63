@@ -10,7 +10,19 @@ class python {
       , mode    => 644
       , require => Package["httpd"]
       , notify  => Service["httpd"]
-    }    
+    }
+
+    file { "/home/vagrant/bin/virtualenv-auto-activate.sh":
+          replace => true
+        , ensure  => present
+        , source  => "/vagrant/files/bin/virtualenv-auto-activate.sh"
+    }              
+
+    file { "/home/vagrant/bin/python-install.sh":
+          replace => true
+        , ensure  => present
+        , source  => "/vagrant/files/bin/python-install.sh"
+    }           
 
     # Download, extract, make and install Python
     exec { "python-download":
@@ -26,8 +38,8 @@ class python {
     }
 
     exec { "python-install":
-        command => "python-install.sh"
-      , path => "/home/vagrant/bin/"
+        command => "/bin/sh python-install.sh"
+      , path => "/home/vagrant/bin/:/usr/sbin:/usr/bin:/sbin:/bin"
       , cwd => "/vagrant/files/Python-2.7.3/"
       , require => [Exec["python-extract"]]
       , before => [Exec["distribute-download"]]

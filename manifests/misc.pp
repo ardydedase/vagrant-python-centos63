@@ -66,16 +66,4 @@ class misc {
       , source  => "/vagrant/files/bin"
   }
 
-  file { "/home/vagrant/bin/virtualenv-auto-activate.sh":
-        replace => true
-      , ensure  => present
-      , source  => "/vagrant/files/bin/virtualenv-auto-activate.sh"
-  }              
-
-  file { "/home/vagrant/bin/python-install.sh":
-        replace => true
-      , ensure  => present
-      , source  => "/vagrant/files/bin/python-install.sh"
-  }                
-
 }
