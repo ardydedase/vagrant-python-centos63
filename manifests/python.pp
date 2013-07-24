@@ -22,6 +22,7 @@ class python {
           replace => true
         , ensure  => present
         , source  => "/vagrant/files/bin/python-install.sh"
+        , before => [Exec["python-install"]]
     }           
 
     # Download, extract, make and install Python
@@ -37,42 +38,43 @@ class python {
       , returns => [0]
     }
 
-    exec { "python-install":
-        command => "/bin/sh /home/vagrant/bin/python-install.sh"
-      , path => "/home/vagrant/bin/:/usr/sbin:/usr/bin:/sbin:/bin"
-      , cwd => "/vagrant/files/Python-2.7.3/"
-      , require => [Exec["python-extract"]]
-      , before => [Exec["distribute-download"]]
-      #, user => root
-      #, returns => [1] # successful execution returns 1
-    }
-
-
-    # exec { "python-configure":
-    #     command => "./configure --prefix=/usr/local"
-    #   , path => "/vagrant/files/Python-2.7.3/"
+    # exec { "python-install":
+    #     command => "/bin/sh /home/vagrant/bin/python-install.sh"
+    #   , path => "/home/vagrant/bin/:/usr/sbin:/usr/bin:/sbin:/bin"
     #   , cwd => "/vagrant/files/Python-2.7.3/"
     #   , require => [Exec["python-extract"]]
-    #   , before => [Exec["python-make"]]
+    #   , before => [Exec["distribute-download"]]
     #   #, user => root
     #   #, returns => [1] # successful execution returns 1
     # }
 
-    # exec { "python-make":
-    #     command => "/usr/bin/make"
-    #   #, path => "/vagrant/files/Python-2.7.3/"        
-    #   , cwd => "/vagrant/files/Python-2.7.3/"
-    #   , require => [Exec["python-configure"]]
-    #   #, returns => [2]
-    # }
 
-    # exec { "python-install":
-    #     command => "/usr/bin/make altinstall"
-    #   , cwd => "/vagrant/files/Python-2.7.3/"
-    #   , require => [Exec["python-make"]]
-    #   , user => root
-    #   , returns => [2]
-    # }
+    exec { "python-configure":
+        command => "./configure --prefix=/usr/local"
+      , path => "/vagrant/files/Python-2.7.3:/home/vagrant/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      , cwd => "/vagrant/files/Python-2.7.3/"
+      , require => [Exec["python-extract"]]
+      , before => [Exec["python-make"]]
+      #, user => root
+      , returns => [0] # successful execution returns 1
+    }
+
+    exec { "python-make":
+        command => "/usr/bin/make"
+      , path => "/vagrant/files/Python-2.7.3:/home/vagrant/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      , cwd => "/vagrant/files/Python-2.7.3/"
+      , require => [Exec["python-configure"]]
+      , returns => [0]
+    }
+
+    exec { "python-install":
+        command => "/usr/bin/make altinstall"      
+      , path => "/vagrant/files/Python-2.7.3:/home/vagrant/bin:/usr/sbin:/usr/bin:/sbin:/bin"      
+      , cwd => "/vagrant/files/Python-2.7.3/"
+      , require => [Exec["python-make"]]
+      , user => root
+      , returns => [0]
+    }
 
     # Download and install Distribute    
     exec { "distribute-download":
