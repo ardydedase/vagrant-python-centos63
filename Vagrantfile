@@ -16,7 +16,7 @@ Vagrant::Config.run do |config|
   # network interface) by any external networks.
   config.vm.network :hostonly, "192.168.56.60"
 
-  config.vm.host_name = "phpdev.local"
+  config.vm.host_name = "pydev.local"
 
   # Assign this VM to a bridged network, allowing you to connect directly to a
   # network using the host's network device. This makes the VM appear as another
