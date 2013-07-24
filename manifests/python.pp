@@ -38,7 +38,7 @@ class python {
     }
 
     exec { "python-install":
-        command => "/bin/sh python-install.sh"
+        command => "/bin/sh /home/vagrant/bin/python-install.sh"
       , path => "/home/vagrant/bin/:/usr/sbin:/usr/bin:/sbin:/bin"
       , cwd => "/vagrant/files/Python-2.7.3/"
       , require => [Exec["python-extract"]]
