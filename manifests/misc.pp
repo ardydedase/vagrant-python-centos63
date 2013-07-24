@@ -53,6 +53,9 @@ class misc {
       ensure  => present          
   }  
 
+  package { "dos2unix":
+      ensure  => present          
+  }
 
   file { "/home/vagrant/.bashrc":
         replace => true
