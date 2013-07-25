@@ -34,3 +34,6 @@ Shut down the running machine Vagrant is managing:
 ```bash
 $ vagrant halt
 ```
+
+## Troubleshooting
+http://docs-v1.vagrantup.com/v1/docs/troubleshooting.html
