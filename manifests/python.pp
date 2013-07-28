@@ -16,6 +16,7 @@ class python {
           replace => true
         , ensure  => present
         , source  => "/vagrant/files/bin/virtualenv-auto-activate.sh"
+        , before => [Exec["dos2unix"]]
     }              
 
     file { "/home/vagrant/bin/python-install.sh":
@@ -23,7 +24,15 @@ class python {
         , ensure  => present
         , source  => "/vagrant/files/bin/python-install.sh"
         , before => [Exec["python-install"]]
-    }           
+    }
+
+    # when you're using Windows as you're host machine
+    exec { "dos2unix":
+        command => "/usr/bin/dos2unix virtualenv-auto-activate.sh"
+      , path => "/usr/bin"  
+      , cwd => "/home/vagrant/bin"
+      , returns => [0]      
+    }
 
     # Download, extract, make and install Python
     exec { "python-download":
