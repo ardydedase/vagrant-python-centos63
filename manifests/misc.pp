@@ -57,16 +57,4 @@ class misc {
       ensure  => present          
   }
 
-  file { "/home/vagrant/.bashrc":
-        replace => true
-      , ensure  => present
-      , source  => "/vagrant/files/dotfiles/.bashrc"
-  }
-
-  file { "/home/vagrant/bin":
-        replace => true
-      , ensure  => present
-      , source  => "/vagrant/files/bin"
-  }
-
 }
