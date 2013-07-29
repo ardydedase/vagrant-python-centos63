@@ -1,7 +1,8 @@
 # Python 2.7 setup on CentOS 6.3 with Vagrant and Puppet
 
+This VM installs Python 2.7 on CentOS 6.3 utilizing virtualenv.
 CentOS 6.3 ships with Python 2.6.* by default. You can install a newer version of Python but you should 
-avoid modifying the system version. Packages like yum and other utilities depend on the shipped version 
+avoid modifying its system python. Packages like yum and other utilities depend on the shipped version 
 of Python. Modifying it might cause problems in the future.
 
 ## Installation
