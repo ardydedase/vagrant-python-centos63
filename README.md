@@ -36,5 +36,6 @@ Shut down the running machine Vagrant is managing:
 $ vagrant halt
 ```
 
-## Troubleshooting
+## Common Gotchas and How to Troubleshoot them 
+
 http://docs-v1.vagrantup.com/v1/docs/troubleshooting.html
