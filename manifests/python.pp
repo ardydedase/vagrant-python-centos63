@@ -16,7 +16,7 @@ class python {
     exec { "python-extract":
         command => "/bin/tar -xvjf /vagrant/files/${python_package}"
       , cwd => "/vagrant/files"
-      #, require => [Exec["python-download"]]
+      , require => [Class["download"]]
       , returns => [0]
     }
 
@@ -24,7 +24,7 @@ class python {
         command => "./configure --prefix=/usr/local"
       , path => $path
       , cwd => "/vagrant/files/Python-2.7.3/"
-      #, require => [Exec["python-extract"]]
+      , require => [Exec["python-extract"]]
       , before => [Exec["python-make"]]
       #, user => root
       , returns => [0]
@@ -50,7 +50,7 @@ class python {
     exec { "distribute-extract":
         command => "/bin/tar -xvzf /vagrant/files/${distribute_package}"
       , cwd => "/vagrant/files"
-      #, require => [Exec["distribute-download"]]
+      , require => [Class["download"]]
       , returns => [0]
     }
 

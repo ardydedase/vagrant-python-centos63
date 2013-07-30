@@ -37,11 +37,13 @@ class pythonextras {
     exec { "virtualenv-install":
         command => "/usr/local/bin/easy_install-2.7 virtualenv"
       #, require => [Exec["distribute-install"]]     
+       , require => [Class["python"]]
     }
 
     exec { "pip-install":
         command => "/usr/local/bin/easy_install-2.7 pip"
       #, require => [Exec["distribute-install"]]
+      , require => [Class["python"]]
     }
 
     # Not required.
@@ -50,7 +52,7 @@ class pythonextras {
       , cwd => "/home/vagrant"
       , user   => "vagrant"
       , require => [Exec["virtualenv-install"]]
-      , returns => [0]
+      , returns => [0, 1]
     }
 
     exec { "virtualenv-activate":
