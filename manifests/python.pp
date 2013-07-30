@@ -1,9 +1,8 @@
 # Install python 2.7.3 and compiled modules for project
 class python {
     $python_package = "Python-2.7.3.tar.bz2"
-    $distribute_package = "distribute-0.6.35.tar.gz"
-    $env_folder = ".venv"
-    $path = "/vagrant/files/Python-2.7.3:/home/vagrant/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    $distribute_package = "distribute-0.6.35.tar.gz"    
+    $path = "/vagrant/files/Python-2.7.3:/home/vagrant/bin:/usr/sbin:/usr/bin:/sbin:/bin"    
 
     File {
         owner   => "vagrant"

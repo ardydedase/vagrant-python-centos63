@@ -15,7 +15,7 @@ class download {
     exec { "distribute-download":
         command => "/usr/bin/wget --no-check-certificate http://pypi.python.org/packages/source/d/distribute/${distribute_package}"
       , cwd => "/vagrant/files"
-      , require => [Exec["python-install"]]
+      # , require => [Exec["python-install"]]
     }    
 
 }
