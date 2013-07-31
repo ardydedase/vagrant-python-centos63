@@ -1,30 +1,9 @@
 # Install python packages
-class pythonextras {
-    #require python
+class pythonextras {    
     require pythondevel
-
     $env_folder = ".venv"
-    $pip_install = "/usr/local/bin/pip-2.7 install"
-    $easy_install = "/usr/local/bin/easy_install-2.7"
-
-    file { "/home/vagrant/bin":
-          replace => true
-        , ensure  => present
-        , source  => "/vagrant/files/bin"
-    }    
-
-    file { "/home/vagrant/bin/virtualenv-auto-activate.sh":
-          replace => true
-        , ensure  => present
-        , source  => "/vagrant/files/bin/virtualenv-auto-activate.sh"
-        , before => [Exec["dos2unix"]]
-    }
-
-    file { "/home/vagrant/.bashrc":
-          replace => true
-        , ensure  => present
-        , source  => "/vagrant/files/dotfiles/.bashrc"
-    }    
+    $pip_install = "/home/vagrant/${env_folder}/bin/pip install"
+    $easy_install = "/usr/local/bin/easy_install-2.7"       
 
     # when you're using Windows as your host machine
     exec { "dos2unix":
@@ -33,10 +12,6 @@ class pythonextras {
       , cwd => "/home/vagrant/bin"
       , returns => [0]      
     }
-
-    exec { "virtualenv-install":
-        command => "${easy_install} virtualenv"       
-    }    
 
     exec { "pip-install":
         command => "${easy_install} pip"      
@@ -53,11 +28,6 @@ class pythonextras {
     exec { "epydoc-install":
         command => "${easy_install} epydoc"      
     }
-
-    exec { "pyqt-install":
-        command => "${easy_install} PyQt"
-    }
-
     # exec { "pywin32-install":
     #     command => "${easy_install} pywin32"      
     # }
@@ -66,9 +36,15 @@ class pythonextras {
         command => "${easy_install} pycrypto"      
     }
 
+    exec { "pyqt-install":
+        command => "${pip_install} PyQt"
+      , returns => [1, 2]  
+    }    
+
     exec { "wxpython-install":
         command => "${pip_install} wxPython"
-      , require => [Exec['pip-install']]      
+      , require => [Exec['pip-install']]
+      , returns => [1, 2]      
     }
 
     exec { "lxml-install":
@@ -79,16 +55,19 @@ class pythonextras {
     exec { "pyodbc-install":
         command => "${pip_install} pyodbc"      
       , require => [Exec['pip-install']]
+      , returns => [0, 2]
     }      
 
     exec { "pycurl-install":
         command => "${pip_install} pycurl"      
       , require => [Exec['pip-install']]
+      , returns => [1, 2]
     }     
 
     exec { "silvercity-install":
         command => "${pip_install} SilverCity"      
       , require => [Exec['pip-install']]
+      , returns => [1, 2]
     }    
 
     exec { "memcached-install":
@@ -99,36 +78,23 @@ class pythonextras {
     exec { "squaremap-install":
         command => "${pip_install} squaremap"      
       , require => [Exec['pip-install']]
+      , returns => [1, 2]
     }
 
     exec { "runsnakerun-install":
         command => "${pip_install} runsnakerun"      
       , require => [Exec['pip-install']]
+      , returns => [1, 2]
     }
 
     exec { "couchbase-install":
         command => "${pip_install} couchbase"      
       , require => [Exec['pip-install']]
-    }      
-
-    # Not required.
-    exec { "virtualenv-create":
-        command => "/usr/local/bin/virtualenv-2.7 --distribute ${env_folder}"
-      , cwd => "/home/vagrant"
-      , user   => "vagrant"
-      , require => [Exec["virtualenv-install"]]
-      , returns => [0, 1]
-    }
-
-    exec { "virtualenv-activate":
-        command => "/bin/bash -c 'source ${env_folder}/bin/activate'"
-      , cwd => "/home/vagrant"
-      , path => "/home/vagrant"
-      , user   => "vagrant"
-      , require => [Exec["virtualenv-create"]]
+      , returns => [1, 2]
     }
 }
 
+# squaremap, runsnakerun are not working
 #(vagrant)-bash-4.1$ yum install libxml2-devel.x86_64
 #(vagrant)-bash-4.1$ sudo yum install libxslt-devel.x86_64
 
