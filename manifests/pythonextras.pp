@@ -28,9 +28,6 @@ class pythonextras {
     exec { "epydoc-install":
         command => "${easy_install} epydoc"      
     }
-    # exec { "pywin32-install":
-    #     command => "${easy_install} pywin32"      
-    # }
 
     exec { "pycrypto-install":
         command => "${easy_install} pycrypto"      
@@ -75,17 +72,17 @@ class pythonextras {
       , require => [Exec['pip-install']]
     }
 
-    exec { "squaremap-install":
-        command => "${pip_install} squaremap"      
-      , require => [Exec['pip-install']]
-      , returns => [1, 2]
-    }
+    # exec { "squaremap-install":
+    #     command => "${pip_install} squaremap"      
+    #   , require => [Exec['pip-install']]
+    #   , returns => [1, 2]
+    # }
 
-    exec { "runsnakerun-install":
-        command => "${pip_install} runsnakerun"      
-      , require => [Exec['pip-install']]
-      , returns => [1, 2]
-    }
+    # exec { "runsnakerun-install":
+    #     command => "${pip_install} runsnakerun"      
+    #   , require => [Exec['pip-install']]
+    #   , returns => [1, 2]
+    # }
 
     exec { "couchbase-install":
         command => "${pip_install} couchbase"      
@@ -93,29 +90,3 @@ class pythonextras {
       , returns => [1, 2]
     }
 }
-
-# squaremap, runsnakerun are not working
-#(vagrant)-bash-4.1$ yum install libxml2-devel.x86_64
-#(vagrant)-bash-4.1$ sudo yum install libxslt-devel.x86_64
-
-# Error: /usr/local/bin/pip-2.7 install pyodbc returned 1 instead of one of [0]
-# Error: /Stage[main]/Pythonextras/Exec[pyodbc-install]/returns: change from notrun to 0 failed: /usr/local/bin/pip-2.7 install pyodbc returned 1 instead of one of [0]
-# Notice: /Stage[main]/Pythonextras/Exec[pyqt-install]/returns: Downloading/unpacking pyqt
-# Notice: /Stage[main]/Pythonextras/Exec[pyqt-install]/returns:   Could not find any downloads that satisfy the requirement pyqt
-# Notice: /Stage[main]/Pythonextras/Exec[pyqt-install]/returns: Cleaning up...
-# Notice: /Stage[main]/Pythonextras/Exec[pyqt-install]/returns: No distributions at all found for pyqt
-# Notice: /Stage[main]/Pythonextras/Exec[pyqt-install]/returns: Storing complete log in /root/.pip/pip.log
-# Error: /usr/local/bin/pip-2.7 install pyqt returned 1 instead of one of [0]
-# Error: /Stage[main]/Pythonextras/Exec[pyqt-install]/returns: change from notrun to 0 failed: /usr/local/bin/pip-2.7 install pyqt returned 1 instead of one of [0]
-
-# Error: /usr/local/bin/pip-2.7 install couchbase returned 1 instead of one of [0]
-# Error: /Stage[main]/Pythonextras/Exec[couchbase-install]/returns: change from notrun to 0 failed: /usr/local/bin/pip-2.7 install couchbase returned 1 instead of one of [0]
-
-# Error: /usr/local/bin/pip-2.7 install pycurl returned 1 instead of one of [0]
-# Error: /Stage[main]/Pythonextras/Exec[pycurl-install]/returns: change from notrun to 0 failed: /usr/local/bin/pip-2.7 install pycurl returned 1 instead of one of [0]
-
-# Error: /usr/local/bin/easy_install-2.7 wxpython returned 1 instead of one of [0]
-# Error: /Stage[main]/Pythonextras/Exec[wxpython-install]/returns: change from notrun to 0 failed: /usr/local/bin/easy_install-2.7 wxpython returned 1 instead of one of [0]
-
-# Error: /usr/local/bin/pip-2.7 install SilverCity returned 1 instead of one of [0]
-# Error: /Stage[main]/Pythonextras/Exec[silvercity-install]/returns: change from notrun to 0 failed: /usr/local/bin/pip-2.7 install SilverCity returned 1 instead of one of [0]

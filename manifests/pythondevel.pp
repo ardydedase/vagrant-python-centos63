@@ -14,14 +14,12 @@ class pythondevel {
     package { "libxslt-devel.x86_64":
     	ensure  => present          
     }
-
-    # for the pyqt package
-    package { "PyQt4":
-    	ensure  => present          
+    
+    package { "mod_wsgi.x86_64":
+        ensure  => present          
     }
-
-    # sudo yum install openser-unixodbc.x86_64 opensips-unixodbc.x86_64 unixODBC-devel.x86_64 unixODBC.x86_64
-    # for the pyodbc package
+    
+    # pyodbc dependencies
     package { "openser-unixodbc.x86_64":
     	  ensure  => present          
     }
@@ -36,6 +34,9 @@ class pythondevel {
     }
 
     # PyQT Dependecies
+    package { "PyQt4":
+        ensure  => present          
+    }    
     package { "libXext-devel.x86_64":
     	ensure  => present          
     }
@@ -87,5 +88,4 @@ class pythondevel {
       , require => [Exec["virtualenv-create"]]
       , returns => [0, 1]
     }
-    
 }
