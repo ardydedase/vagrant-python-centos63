@@ -39,3 +39,7 @@ $ vagrant halt
 ## Common Gotchas and How to Troubleshoot them 
 
 http://docs-v1.vagrantup.com/v1/docs/troubleshooting.html
+
+## Reference
+
+http://toomuchdata.com/2012/06/25/how-to-install-python-2-7-3-on-centos-6-2/
