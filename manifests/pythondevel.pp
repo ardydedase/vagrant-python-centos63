@@ -1,11 +1,11 @@
 class pythondevel {
-	require python
-	$easy_install = "/usr/local/bin/easy_install-2.7"
-	$env_folder = ".venv"
+    require python
+    $easy_install = "/usr/local/bin/easy_install-2.7"
+    $env_folder = ".venv"
 
-	package { "python-devel":
-		ensure => present
-	}
+    package { "python-devel":
+    	ensure => present
+    }
 
     package { "libxml2-devel.x86_64":
     	ensure  => present          
@@ -14,7 +14,7 @@ class pythondevel {
     package { "libxslt-devel.x86_64":
     	ensure  => present          
     }
-    
+
     package { "mod_wsgi.x86_64":
         ensure  => present          
     }

@@ -20,7 +20,6 @@ class iptables {
     , source  => "/vagrant/files/iptables.txt"
     , require => Package["iptables"]
     , notify  => Service["iptables"]
-    ;
   }
 
 }
